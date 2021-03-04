@@ -15,4 +15,13 @@ public class Matrix {
         }
         return c;
     }
+
+    // wip
+    public static int[][] recursive(int[][] a, int[][] b, int aCol, int aRow, int bCol, int bRow, int n) {
+        if (n == 1) {
+            return new int[][]{{a[aRow][aCol] * b[bRow][bCol]}};
+        }
+        int[][] matrix = new int[n][n];
+        return null;
+    }
 }
