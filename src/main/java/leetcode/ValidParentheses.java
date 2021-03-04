@@ -12,14 +12,14 @@ public class ValidParentheses {
     public boolean isValid(String s) {
         char[] chars = s.toCharArray();
         Stack<Character> stack = new Stack<>();
-        for (int i = 0; i < chars.length; i++) {
-            Character opening = lookUp.get(chars[i]);
+        for (char aChar : chars) {
+            Character opening = lookUp.get(aChar);
             if (opening != null) {
                 if (stack.isEmpty() || !opening.equals(stack.pop())) {
                     return false;
                 }
             } else {
-                stack.push(chars[i]);
+                stack.push(aChar);
             }
         }
         return stack.isEmpty();
