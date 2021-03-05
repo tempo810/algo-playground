@@ -1,5 +1,7 @@
 package leetcode;
 
+import leetcode.datastructure.TreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,25 +30,6 @@ public class AverageLevelBinaryTree {
             count.set(depth, count.get(depth) + 1);
             dfs(root.left, depth + 1, sum, count);
             dfs(root.right, depth + 1, sum, count);
-        }
-    }
-
-    public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode() {
-        }
-
-        TreeNode(int val) {
-            this.val = val;
-        }
-
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
         }
     }
 }
