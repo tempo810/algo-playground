@@ -10,7 +10,7 @@ public class AverageLevelBinaryTree {
     public List<Double> averageOfLevels(TreeNode root) {
         List<Double> results = new ArrayList<>();
         List<Integer> counts = new ArrayList<>();
-        parse(root, 0, results, counts);
+        dfs(root, 0, results, counts);
 
         for (int i = 0; i < results.size(); i++) {
             results.set(i, results.get(i) / counts.get(i));
@@ -18,7 +18,7 @@ public class AverageLevelBinaryTree {
         return results;
     }
 
-    private void parse(TreeNode root, int depth, List<Double> sum, List<Integer> count) {
+    private void dfs(TreeNode root, int depth, List<Double> sum, List<Integer> count) {
         if (root != null) {
             if (sum.size() <= depth) {
                 sum.add(0D);
@@ -26,8 +26,8 @@ public class AverageLevelBinaryTree {
             }
             sum.set(depth, sum.get(depth) + root.val);
             count.set(depth, count.get(depth) + 1);
-            parse(root.left, depth + 1, sum, count);
-            parse(root.right, depth + 1, sum, count);
+            dfs(root.left, depth + 1, sum, count);
+            dfs(root.right, depth + 1, sum, count);
         }
     }
 
