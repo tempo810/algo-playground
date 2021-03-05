@@ -5,21 +5,21 @@ package leetcode;
  */
 public class WinnerOfArrayGame {
     public int getWinner(int[] arr, int k) {
-        int maxValueIndex = 0;
+        int maxValue = arr[0];
         int count = 0;
         for (int i = 1; i < arr.length; i++) {
-            if (arr[i] > arr[maxValueIndex]) {
+            if (arr[i] > maxValue) {
                 count = 1;
-                maxValueIndex = i;
+                maxValue = arr[i];
             } else {
                 count++;
             }
 
             if (count >= k) {
-                return arr[maxValueIndex];
+                break;
             }
         }
 
-        return arr[maxValueIndex];
+        return maxValue;
     }
 }
