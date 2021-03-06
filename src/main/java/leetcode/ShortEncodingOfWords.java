@@ -55,12 +55,4 @@ public class ShortEncodingOfWords {
         }
         return ans;
     }
-
-    private TrieNode add(TrieNode trie, String word) {
-        TrieNode current = trie;
-        for (int j = word.length() - 1; j >= 0; j--) {
-            current = current.get(word.charAt(j));
-        }
-        return current;
-    }
 }
