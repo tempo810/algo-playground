@@ -34,5 +34,6 @@ class MatrixMultiplicationTest {
 
         assertThat(MatrixMultiplication.multiplyBruteForce(a, b), Matchers.is(expected));
         assertThat(MatrixMultiplication.recursive(a, b, 0, 0, 0, 0, a.length), Matchers.is(expected));
+        assertThat(MatrixMultiplication.strassen(a, b), Matchers.is(expected));
     }
 }
