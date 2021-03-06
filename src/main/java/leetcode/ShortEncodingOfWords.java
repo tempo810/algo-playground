@@ -28,21 +28,22 @@ public class ShortEncodingOfWords {
         return count;
     }
 
-    // explanation: if s1 a substring of s2, the head node of s1 in nodes map will has children node of s2 (and count > 0).
+    // explanation: when s1 is added to trie, the stopping node will be marked as stopped. if s2 equals s1, the stop node is same as s1 and already stopped to spot the duplicates.
     public int minimumLengthEncodingTrieDemo(String[] words) {
         TrieNode trie = new TrieNode();
         List<TrieNode> heads = new ArrayList<>();
-        Set<String> exists = new HashSet<>();
 
         for (String word : words) {
-            if (!exists.add(word)) {
-                heads.add(null);
-                continue;
-            }
             TrieNode cur = trie;
-            for (int j = word.length() - 1; j >= 0; --j)
+            for (int j = word.length() - 1; j >= 0; --j) {
                 cur = cur.get(word.charAt(j));
-            heads.add(cur);
+            }
+            if (!cur.stop) {
+                cur.stop = true;
+                heads.add(cur);
+            } else {
+                heads.add(null);
+            }
         }
 
         int ans = 0;

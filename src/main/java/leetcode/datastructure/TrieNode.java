@@ -6,6 +6,7 @@ package leetcode.datastructure;
 public class TrieNode {
     public TrieNode[] children;
     public int count;
+    public boolean stop = false;
 
     public TrieNode() {
         children = new TrieNode[26];
