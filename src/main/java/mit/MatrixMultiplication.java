@@ -42,4 +42,8 @@ public class MatrixMultiplication {
             }
         }
     }
+
+    public static int[][] strassen(int[][] a, int b, int aRow, int aCol, int bRow, int bCol, int anInt) {
+        return null;
+    }
 }
