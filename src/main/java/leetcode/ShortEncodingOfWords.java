@@ -2,10 +2,10 @@ package leetcode;
 
 import leetcode.datastructure.TrieNode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,22 +31,36 @@ public class ShortEncodingOfWords {
     // explanation: if s1 a substring of s2, the head node of s1 in nodes map will has children node of s2 (and count > 0).
     public int minimumLengthEncodingTrieDemo(String[] words) {
         TrieNode trie = new TrieNode();
-        Map<TrieNode, Integer> nodes = new HashMap<>();
+        List<TrieNode> heads = new ArrayList<>();
+        Set<String> exists = new HashSet<>();
 
-        for (int i = 0; i < words.length; ++i) {
-            String word = words[i];
+        for (String word : words) {
+            if (!exists.add(word)) {
+                heads.add(null);
+                continue;
+            }
             TrieNode cur = trie;
             for (int j = word.length() - 1; j >= 0; --j)
                 cur = cur.get(word.charAt(j));
-            nodes.put(cur, i);
+            heads.add(cur);
         }
 
         int ans = 0;
-        for (TrieNode node : nodes.keySet()) {
-            if (node.count == 0)
-                ans += words[nodes.get(node)].length() + 1;
+        for (int i = 0; i < heads.size(); i++) {
+            TrieNode node = heads.get(i);
+            if (node != null && node.count == 0) {
+                ans += words[i].length() + 1;
+
+            }
         }
         return ans;
+    }
 
+    private TrieNode add(TrieNode trie, String word) {
+        TrieNode current = trie;
+        for (int j = word.length() - 1; j >= 0; j--) {
+            current = current.get(word.charAt(j));
+        }
+        return current;
     }
 }
