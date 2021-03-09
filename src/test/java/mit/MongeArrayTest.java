@@ -30,8 +30,6 @@ class MongeArrayTest {
     @Test
     void bruteForce() {
         assertThat(MongeArray.bruteForce(positiveArray), Matchers.is(true));
-        assertThat(MongeArray.greedy(positiveArray), Matchers.is(true));
         assertThat(MongeArray.bruteForce(negativeArray), Matchers.is(false));
-        assertThat(MongeArray.greedy(negativeArray), Matchers.is(false));
     }
 }

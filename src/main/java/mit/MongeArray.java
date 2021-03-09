@@ -19,33 +19,4 @@ public class MongeArray {
         }
         return true;
     }
-
-    public static boolean greedy(int[][] arr) {
-        int globalMinIndex = Integer.MIN_VALUE;
-        for (int i = 0; i < arr.length; i++) {
-            int localMinIndex = 0;
-            for (int j = 1; j < arr[i].length; j++) {
-                if (arr[i][j] < arr[i][localMinIndex]) {
-                    localMinIndex = j;
-                }
-            }
-            if (localMinIndex < globalMinIndex) {
-                return false;
-            } else {
-                globalMinIndex = localMinIndex;
-            }
-        }
-        return true;
-    }
-
-    public static boolean divideAndConquer(int[][] arr) {
-        return divideAndConquer(arr, 0, arr.length);
-    }
-
-    private static boolean divideAndConquer(int[][] arr, int low, int high) {
-        if (low == high) {
-            return true;
-        }
-        return false;
-    }
 }
