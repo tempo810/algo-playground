@@ -1,5 +1,7 @@
 package leetcode;
 
+import leetcode.datastructure.ListNode;
+
 /**
  * @author tempo
  */
@@ -33,13 +35,4 @@ public class IntersectionOf2LinkedList {
         return intersect;
     }
 
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-    }
 }
