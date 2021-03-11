@@ -11,6 +11,29 @@ public class CoinChange {
         return helper(coins.length - 1, amount, coins);
     }
 
+    public int coinChangeBottomUp(int[] coins, int amount) {
+        int[] dp = new int[amount + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        for (int coin : coins) {
+            if (coin <= amount) {
+                dp[coin] = 1;
+            }
+        }
+
+        for (int i = 1; i <= amount; i++) {
+            if (dp[i] == Integer.MAX_VALUE) {
+                int currentMax = Integer.MAX_VALUE;
+                for (int coin : coins) {
+                    if (i - coin > 0 && dp[i - coin] != Integer.MAX_VALUE) {
+                        currentMax = Math.min(dp[i - coin] + 1, currentMax);
+                    }
+                }
+                dp[i] = currentMax;
+            }
+        }
+        return dp[amount] == Integer.MAX_VALUE ? -1 : dp[amount];
+    }
+
     public int coinChangeDp(int[] coins, int amount) {
         if (amount == 0) {
             return 0;
