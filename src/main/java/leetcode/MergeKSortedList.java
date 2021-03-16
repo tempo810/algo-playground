@@ -9,6 +9,7 @@ import java.util.PriorityQueue;
  * @author tempo
  */
 public class MergeKSortedList {
+    // O(n log k)
     public ListNode mergeKLists(ListNode[] lists) {
         PriorityQueue<KIndexedListNode> queue = new PriorityQueue<>(Comparator.comparingInt(l -> l.node.val));
         for (int i = 0; i < lists.length; i++) {
