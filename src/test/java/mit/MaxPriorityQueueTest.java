@@ -34,5 +34,6 @@ class MaxPriorityQueueTest {
 
         assertThat(maxQueue.size(), is(12));
         assertThat(maxQueue.extractMax(), is(15));
+
     }
 }
