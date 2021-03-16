@@ -9,7 +9,7 @@ public class BestTimeToSellOrBuyAStockWithTransactionFee {
         int endBuy = Integer.MIN_VALUE;
 
         for (int price : prices) {
-            endBuy = Math.max(endBuy, profit - price - fee); // compete on minimum buying price
+            endBuy = Math.max(endBuy, profit - price - fee);
             profit = Math.max(profit, endBuy + price);
         }
         return profit;
