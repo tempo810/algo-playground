@@ -36,6 +36,19 @@ public class MaxPriorityQueue {
         if (value < queue[index]) {
             throw new Error("new key is smaller than current key");
         }
+
+        queue[index] = value;
+        int i = index + 1;
+
+        while (i > 1 && queue[(i / 2) - 1] < queue[i - 1]) {
+            int temp = queue[i - 1];
+            queue[i - 1] = queue[(i / 2) - 1];
+            queue[(i / 2) - 1] = temp;
+            i /= 2;
+        }
+    }
+
+    public void increaseKey(int index, int value) {
         int i = index + 1;
 
         while (i > 1 && queue[(i / 2) - 1] < value) {
