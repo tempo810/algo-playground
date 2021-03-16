@@ -10,9 +10,14 @@ public class Heap {
         }
     }
 
+    public static void buildMinHeap(int[] arr) {
+        for (int i = arr.length / 2; i >= 1; i--) {
+            minHeapify(arr, i);
+        }
+    }
+
     public static void maxHeapify(int[] arr, int index) {
         maxHeapify(arr, index, arr.length);
-
     }
 
     public static void maxHeapify(int[] arr, int index, int end) {
@@ -53,20 +58,23 @@ public class Heap {
         }
     }
 
-
     public static void minHeapify(int[] arr, int index) {
+        minHeapify(arr, index, arr.length);
+    }
+
+    public static void minHeapify(int[] arr, int index, int end) {
         int smallestIndex = index;
-        if (2 * index <= arr.length && arr[(2 * index) - 1] < arr[smallestIndex - 1]) {
+        if (2 * index <= end && arr[(2 * index) - 1] < arr[smallestIndex - 1]) {
             smallestIndex = 2 * index;
         }
-        if ((2 * index) + 1 <= arr.length && arr[2 * index] < arr[smallestIndex - 1]) {
+        if ((2 * index) + 1 <= end && arr[2 * index] < arr[smallestIndex - 1]) {
             smallestIndex = (2 * index) + 1;
         }
         if (smallestIndex != index) {
             int temp = arr[index - 1];
             arr[index - 1] = arr[smallestIndex - 1];
             arr[smallestIndex - 1] = temp;
-            minHeapify(arr, smallestIndex);
+            minHeapify(arr, smallestIndex, end);
         }
     }
 }
