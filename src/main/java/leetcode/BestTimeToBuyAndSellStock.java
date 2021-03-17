@@ -13,4 +13,16 @@ public class BestTimeToBuyAndSellStock {
         }
         return max;
     }
+
+    public int maxProfitPrefixSumApproach(int[] prices) {
+        int buy = Integer.MIN_VALUE;
+        int sell = 0;
+
+        for (int price : prices) {
+            buy = Math.max(buy, -price);
+            sell = Math.max(sell, buy + price);
+        }
+
+        return sell;
+    }
 }
