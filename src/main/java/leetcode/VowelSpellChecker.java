@@ -1,7 +1,6 @@
 package leetcode;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,8 +21,7 @@ public class VowelSpellChecker {
                 }
                 current = current.children[index];
             }
-            current.wildCardMatcher.add(word);
-            current.exactMatcher.add(word);
+            current.matchList.add(word);
             current = root;
         }
 
@@ -45,16 +43,16 @@ public class VowelSpellChecker {
             }
         }
 
-        if (current != null && !current.wildCardMatcher.isEmpty()) {
-            if (current.exactMatcher.contains(query)) {
-                return query;
-            }
-            for (String s : current.wildCardMatcher) {
-                if (query.equalsIgnoreCase(s)) {
+        if (!current.matchList.isEmpty()) {
+            String wildCardMatch = null;
+            for (String s : current.matchList) {
+                if (query.equals(s)) {
                     return s;
+                } else if (wildCardMatch == null && query.equalsIgnoreCase(s)) {
+                    wildCardMatch = s;
                 }
             }
-            return current.wildCardMatcher.get(0);
+            return wildCardMatch != null ? wildCardMatch : current.matchList.get(0);
         }
         return "";
     }
@@ -66,7 +64,6 @@ public class VowelSpellChecker {
 
     private static class Trie {
         private final Trie[] children = new Trie[26];
-        private final List<String> wildCardMatcher = new ArrayList<>();
-        private final Set<String> exactMatcher = new HashSet<>();
+        private final List<String> matchList = new ArrayList<>();
     }
 }
