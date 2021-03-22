@@ -1,88 +1,72 @@
 package leetcode;
 
-import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * @author tempo
  */
 public class VowelSpellChecker {
-    private static final Set<Character> VOWELS = Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+    private static final Set<Character> VOWELS = Set.of('a', 'e', 'i', 'o', 'u');
 
     public String[] spellchecker(String[] wordlist, String[] queries) {
-        Node root = new Node();
-        Node cur = root;
-        Map<String, String> firstAppearance = new HashMap<>();
-
+        Trie root = new Trie();
+        Trie current = root;
         for (String word : wordlist) {
-            for (int j = 0; j < word.length(); j++) {
-                char c = word.charAt(j);
-                if (cur.children[c >= 97 ? c - 'a' : c - 39] == null) {
-                    cur.children[c >= 97 ? c - 'a' : c - 39] = new Node();
+            for (int i = 0; i < word.length(); i++) {
+                int index = getIndex(word, i);
+                if (current.children[index] == null) {
+                    current.children[index] = new Trie();
                 }
-                if (VOWELS.contains(c)) {
-                    cur.vowels.add(c >= 97 ? c - 'a' : c - 39);
-                }
-                cur = cur.children[c >= 97 ? c - 'a' : c - 39];
+                current = current.children[index];
             }
-            cur = root;
-            firstAppearance.putIfAbsent(word.toLowerCase(), word);
+            current.wildCardMatcher.add(word);
+            current.exactMatcher.add(word);
+            current = root;
         }
 
         String[] results = new String[queries.length];
-        for (int i = 0; i < queries.length; i++) {
-            var sb = new StringBuilder();
-            query(queries[i], root, sb);
-            String result = sb.toString();
-            results[i] = result.equals(queries[i]) ? result : firstAppearance.getOrDefault(result.toLowerCase(), result);
+        for (int i = 0; i < results.length; i++) {
+            results[i] = query(root, queries[i]);
         }
 
         return results;
     }
 
-    private void query(String query, Node root, StringBuilder sb) {
-        if (sb.length() < query.length()) {
-            char currentChar = query.charAt(sb.length());
-            Node child = root.children[currentChar >= 97 ? currentChar - 'a' : currentChar - 39];
-
-            if (child != null) {
-                sb.append(currentChar);
-                query(query, child, sb);
-                if (sb.length() == query.length()) {
-                    return;
-                }
-                sb.deleteCharAt(sb.length() - 1);
-            }
-
-            currentChar = Character.isLowerCase(currentChar) ? Character.toUpperCase(currentChar) : Character.toLowerCase(currentChar);
-            child = root.children[currentChar >= 97 ? currentChar - 'a' : currentChar - 39];
-            if (child != null) {
-                sb.append(currentChar);
-                query(query, child, sb);
-                if (sb.length() == query.length()) {
-                    return;
-                }
-                sb.deleteCharAt(sb.length() - 1);
-            }
-
-            if (VOWELS.contains(currentChar)) {
-                for (Integer vowel : root.vowels) {
-                    sb.append((char) (vowel <= 25 ? vowel + 'a' : vowel + 39));
-                    query(query, root.children[vowel], sb);
-                    if (sb.length() == query.length()) {
-                        return;
-                    }
-                    sb.deleteCharAt(sb.length() - 1);
-                }
+    private String query(Trie root, String query) {
+        Trie current = root;
+        for (int i = 0; i < query.length(); i++) {
+            int index = getIndex(query, i);
+            current = current.children[index];
+            if (current == null) {
+                return "";
             }
         }
+
+        if (current != null && !current.wildCardMatcher.isEmpty()) {
+            if (current.exactMatcher.contains(query)) {
+                return query;
+            }
+            for (String s : current.wildCardMatcher) {
+                if (query.equalsIgnoreCase(s)) {
+                    return s;
+                }
+            }
+            return current.wildCardMatcher.get(0);
+        }
+        return "";
     }
 
-    private static class Node {
-        private final Node[] children = new Node[52];
-        private final Queue<Integer> vowels = new ArrayDeque<>();
+    private int getIndex(String query, int i) {
+        char c = Character.toLowerCase(query.charAt(i));
+        return VOWELS.contains(c) ? 0 : c - 'a';
+    }
+
+    private static class Trie {
+        private final Trie[] children = new Trie[26];
+        private final List<String> wildCardMatcher = new ArrayList<>();
+        private final Set<String> exactMatcher = new HashSet<>();
     }
 }
