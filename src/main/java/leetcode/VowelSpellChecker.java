@@ -1,6 +1,8 @@
 package leetcode;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
@@ -12,33 +14,30 @@ public class VowelSpellChecker {
 
     public String[] spellchecker(String[] wordlist, String[] queries) {
         Node root = new Node();
-        for (String word : wordlist) {
-            char c = word.charAt(0);
-            if (root.children[c >= 97 ? c - 'a' : c - 40] == null) {
-                root.children[c >= 97 ? c - 'a' : c - 40] = new Node();
-            }
-            if (VOWELS.contains(c)) {
-                root.vowels.add(c >= 97 ? c - 'a' : c - 40);
-            }
-            Node cur = root.children[c >= 97 ? c - 'a' : c - 40];
+        Node cur = root;
+        Map<String, String> firstAppearance = new HashMap<>();
 
-            for (int j = 1; j < word.length(); j++) {
-                c = word.charAt(j);
-                if (cur.children[c >= 97 ? c - 'a' : c - 40] == null) {
-                    cur.children[c >= 97 ? c - 'a' : c - 40] = new Node();
+        for (String word : wordlist) {
+            for (int j = 0; j < word.length(); j++) {
+                char c = word.charAt(j);
+                if (cur.children[c >= 97 ? c - 'a' : c - 39] == null) {
+                    cur.children[c >= 97 ? c - 'a' : c - 39] = new Node();
                 }
                 if (VOWELS.contains(c)) {
-                    cur.vowels.add(c >= 97 ? c - 'a' : c - 40);
+                    cur.vowels.add(c >= 97 ? c - 'a' : c - 39);
                 }
-                cur = cur.children[c >= 97 ? c - 'a' : c - 40];
+                cur = cur.children[c >= 97 ? c - 'a' : c - 39];
             }
+            cur = root;
+            firstAppearance.putIfAbsent(word.toLowerCase(), word);
         }
 
         String[] results = new String[queries.length];
         for (int i = 0; i < queries.length; i++) {
             var sb = new StringBuilder();
             query(queries[i], root, sb);
-            results[i] = sb.toString();
+            String result = sb.toString();
+            results[i] = result.equals(queries[i]) ? result : firstAppearance.getOrDefault(result.toLowerCase(), result);
         }
 
         return results;
@@ -47,7 +46,7 @@ public class VowelSpellChecker {
     private void query(String query, Node root, StringBuilder sb) {
         if (sb.length() < query.length()) {
             char currentChar = query.charAt(sb.length());
-            Node child = root.children[currentChar >= 97 ? currentChar - 'a' : currentChar - 40];
+            Node child = root.children[currentChar >= 97 ? currentChar - 'a' : currentChar - 39];
 
             if (child != null) {
                 sb.append(currentChar);
@@ -59,7 +58,7 @@ public class VowelSpellChecker {
             }
 
             currentChar = Character.isLowerCase(currentChar) ? Character.toUpperCase(currentChar) : Character.toLowerCase(currentChar);
-            child = root.children[currentChar >= 97 ? currentChar - 'a' : currentChar - 40];
+            child = root.children[currentChar >= 97 ? currentChar - 'a' : currentChar - 39];
             if (child != null) {
                 sb.append(currentChar);
                 query(query, child, sb);
@@ -71,7 +70,7 @@ public class VowelSpellChecker {
 
             if (VOWELS.contains(currentChar)) {
                 for (Integer vowel : root.vowels) {
-                    sb.append((char) (vowel <= 25 ? vowel + 'a' : vowel + 40));
+                    sb.append((char) (vowel <= 25 ? vowel + 'a' : vowel + 39));
                     query(query, root.children[vowel], sb);
                     if (sb.length() == query.length()) {
                         return;
@@ -81,7 +80,6 @@ public class VowelSpellChecker {
             }
         }
     }
-
 
     private static class Node {
         private final Node[] children = new Node[52];
