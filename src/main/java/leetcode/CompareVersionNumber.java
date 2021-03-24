@@ -13,11 +13,8 @@ public class CompareVersionNumber {
         for (int i = 0; i < Math.min(v1.length, v2.length); i++) {
             int rev1 = Integer.parseInt(v1[i]);
             int rev2 = Integer.parseInt(v2[i]);
-            if (rev1 > rev2) {
-                return 1;
-            }
-            if (rev2 > rev1) {
-                return -1;
+            if (rev1 != rev2) {
+                return Integer.compare(rev1, rev2);
             }
             v1Sum += rev1;
             v2Sum += rev2;
@@ -34,10 +31,6 @@ public class CompareVersionNumber {
                 v2Sum += Integer.parseInt(v2[i]);
             }
         }
-
-        if (v1Sum == v2Sum) {
-            return 0;
-        }
-        return v1Sum > v2Sum ? 1 : -1;
+        return Integer.compare(v1Sum, v2Sum);
     }
 }
