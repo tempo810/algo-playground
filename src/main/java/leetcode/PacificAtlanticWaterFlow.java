@@ -49,7 +49,7 @@ public class PacificAtlanticWaterFlow {
                 return true;
             }
         }
-        if (rangeCheck(i + 1, j, targetPath) && backupPath[i + 1][j] && canReach(i + 1, j, targetPath, backupPath)) {
+        if (rangeCheck(i + 1, j, targetPath) && backupPath[i + 1][j]) {
             backupPath[i + 1][j] = false;
             boolean result = canReach(i + 1, j, targetPath, backupPath);
             backupPath[i + 1][j] = true;
