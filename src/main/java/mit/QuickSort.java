@@ -14,10 +14,16 @@ public class QuickSort {
 
     public static void sortHoareTailRecursion(int[] arr, int start, int end) {
         int p = start;
-        while (end > p) {
+        int r = end;
+        while (p < r) {
             int pivot = partitionHoare(arr, p, end);
-            sortHoare(arr, p, pivot - 1);
-            p = pivot + 1;
+            if (pivot < Math.floor((float) (p + r) / 2)) {
+                sortHoare(arr, p, pivot - 1);
+                p = pivot + 1;
+            } else {
+                sortHoare(arr, pivot + 1, r);
+                r = pivot - 1;
+            }
         }
     }
 
