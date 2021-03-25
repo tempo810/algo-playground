@@ -12,6 +12,15 @@ public class QuickSort {
         }
     }
 
+    public static void sortHoareTailRecursion(int[] arr, int start, int end) {
+        int p = start;
+        while (end > p) {
+            int pivot = partitionHoare(arr, p, end);
+            sortHoare(arr, p, pivot - 1);
+            p = pivot + 1;
+        }
+    }
+
     private static int partitionHoare(int[] arr, int start, int end) {
         int pivot = arr[start];
         int low = start;

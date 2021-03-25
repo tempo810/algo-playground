@@ -19,5 +19,9 @@ class QuickSortTest {
         int[] arr2 = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
         QuickSort.sortHoare(arr2, 0, arr2.length - 1);
         assertThat(arr2, Matchers.is(new int[]{1, 2, 3, 4, 7, 8, 9, 10, 14, 16}));
+
+        int[] arr3 = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
+        QuickSort.sortHoareTailRecursion(arr3, 0, arr3.length - 1);
+        assertThat(arr3, Matchers.is(new int[]{1, 2, 3, 4, 7, 8, 9, 10, 14, 16}));
     }
 }
