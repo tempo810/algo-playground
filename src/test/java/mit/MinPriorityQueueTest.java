@@ -3,8 +3,7 @@ package mit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author tempo
@@ -32,7 +31,7 @@ class MinPriorityQueueTest {
         minQueue.add(2);
         minQueue.add(1);
 
-        assertThat(minQueue.size(), is(12));
-        assertThat(minQueue.extractMin(), is(0));
+        assertThat(minQueue.size()).isEqualTo(12);
+        assertThat(minQueue.extractMin()).isEqualTo(0);
     }
 }

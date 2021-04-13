@@ -1,9 +1,8 @@
 package mit;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tempo
@@ -32,8 +31,8 @@ class MatrixMultiplicationTest {
                 {32, 32, -36, -36}
         };
 
-        assertThat(MatrixMultiplication.multiplyBruteForce(a, b), Matchers.is(expected));
-        assertThat(MatrixMultiplication.recursive(a, b, 0, 0, 0, 0, a.length), Matchers.is(expected));
-        assertThat(MatrixMultiplication.strassen(a, b), Matchers.is(expected));
+        assertThat(MatrixMultiplication.multiplyBruteForce(a, b)).isDeepEqualTo(expected);
+        assertThat(MatrixMultiplication.recursive(a, b, 0, 0, 0, 0, a.length)).isDeepEqualTo(expected);
+        assertThat(MatrixMultiplication.strassen(a, b)).isDeepEqualTo(expected);
     }
 }

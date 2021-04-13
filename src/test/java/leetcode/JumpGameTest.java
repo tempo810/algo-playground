@@ -1,9 +1,8 @@
 package leetcode;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tempo
@@ -13,7 +12,7 @@ class JumpGameTest {
 
     @Test
     void canJump() {
-        assertThat(solution.canJump(new int[]{3, 2, 1, 0, 4}), Matchers.is(false));
-        assertThat(solution.canJump(new int[]{1, 1, 1, 0}), Matchers.is(true));
+        assertThat(solution.canJump(new int[]{3, 2, 1, 0, 4})).isFalse();
+        assertThat(solution.canJump(new int[]{1, 1, 1, 0})).isTrue();
     }
 }

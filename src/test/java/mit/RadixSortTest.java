@@ -1,9 +1,8 @@
 package mit;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tempo
@@ -12,7 +11,8 @@ class RadixSortTest {
     @Test
     void sort() {
         String[] input = new String[]{"COW", "DOG", "SEA", "RUG", "ROW", "MOB", "BOX", "TAB", "BAR", "EAR", "TAR", "DIG", "BIG", "TEA", "NOW", "FOX"};
-        assertThat(RadixSort.sort(input), Matchers.is(new String[]{"BAR",
+        assertThat(RadixSort.sort(input)).containsExactly(
+                "BAR",
                 "BIG",
                 "BOX",
                 "COW",
@@ -27,7 +27,6 @@ class RadixSortTest {
                 "SEA",
                 "TAB",
                 "TAR",
-                "TEA"
-        }));
+                "TEA");
     }
 }

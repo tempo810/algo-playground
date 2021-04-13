@@ -2,8 +2,7 @@ package mit;
 
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tempo
@@ -12,6 +11,6 @@ class CountInversionTest {
 
     @Test
     void count() {
-        assertThat(CountInversion.count(new int[]{2, 3, 8, 6, 1}), is(5));
+        assertThat(CountInversion.count(new int[]{2, 3, 8, 6, 1})).isEqualTo(5);
     }
 }

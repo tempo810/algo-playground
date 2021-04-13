@@ -1,9 +1,8 @@
 package leetcode;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tempo
@@ -13,9 +12,9 @@ class SearchInsertPositionTest {
 
     @Test
     void searchInsert() {
-        assertThat(solution.searchInsert(new int[]{1, 3, 5, 6}, 5), Matchers.is(2));
-        assertThat(solution.searchInsert(new int[]{1, 3, 5, 6}, 2), Matchers.is(1));
-        assertThat(solution.searchInsert(new int[]{1, 3, 5, 6}, 7), Matchers.is(4));
-        assertThat(solution.searchInsert(new int[]{1, 3, 5, 6}, 0), Matchers.is(0));
+        assertThat(solution.searchInsert(new int[]{1, 3, 5, 6}, 5)).isEqualTo(2);
+        assertThat(solution.searchInsert(new int[]{1, 3, 5, 6}, 2)).isEqualTo(1);
+        assertThat(solution.searchInsert(new int[]{1, 3, 5, 6}, 7)).isEqualTo(4);
+        assertThat(solution.searchInsert(new int[]{1, 3, 5, 6}, 0)).isEqualTo(0);
     }
 }

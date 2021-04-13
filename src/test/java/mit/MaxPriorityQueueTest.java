@@ -3,8 +3,7 @@ package mit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author tempo
@@ -32,8 +31,8 @@ class MaxPriorityQueueTest {
         maxQueue.add(2);
         maxQueue.add(1);
 
-        assertThat(maxQueue.size(), is(12));
-        assertThat(maxQueue.extractMax(), is(15));
+        assertThat(maxQueue.size()).isEqualTo(12);
+        assertThat(maxQueue.extractMax()).isEqualTo(15);
 
     }
 }

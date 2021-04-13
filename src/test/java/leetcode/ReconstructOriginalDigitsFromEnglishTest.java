@@ -1,8 +1,8 @@
 package leetcode;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tempo
@@ -12,6 +12,6 @@ class ReconstructOriginalDigitsFromEnglishTest {
 
     @Test
     void test() {
-        MatcherAssert.assertThat(solution.originalDigits("owoztneoer"), Matchers.is("012"));
+        assertThat(solution.originalDigits("owoztneoer")).isEqualTo("012");
     }
 }

@@ -1,9 +1,8 @@
 package leetcode;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tempo
@@ -23,7 +22,7 @@ class ValidSudokuTest {
         sudoku[6] = new char[]{'.', '6', '.', '.', '.', '.', '2', '8', '.'};
         sudoku[7] = new char[]{'.', '.', '.', '4', '1', '9', '.', '.', '5'};
         sudoku[8] = new char[]{'.', '.', '.', '.', '8', '.', '.', '7', '9'};
-        assertThat(solution.isValidSudoku(sudoku), Matchers.is(true));
+        assertThat(solution.isValidSudoku(sudoku)).isTrue();
 
         char[][] sudoku2 = new char[9][];
         sudoku2[0] = new char[]{'.', '.', '.', '.', '.', '.', '.', '.', '2'};
@@ -35,6 +34,6 @@ class ValidSudokuTest {
         sudoku2[6] = new char[]{'5', '.', '8', '6', '.', '.', '.', '.', '.'};
         sudoku2[7] = new char[]{'.', '9', '.', '.', '.', '.', '4', '.', '.'};
         sudoku2[8] = new char[]{'.', '.', '.', '.', '5', '.', '.', '.', '.'};
-        assertThat(solution.isValidSudoku(sudoku2), Matchers.is(true));
+        assertThat(solution.isValidSudoku(sudoku2)).isTrue();
     }
 }

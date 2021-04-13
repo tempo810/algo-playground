@@ -1,9 +1,8 @@
 package mit;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Tempo
@@ -29,7 +28,7 @@ class MongeArrayTest {
 
     @Test
     void bruteForce() {
-        assertThat(MongeArray.bruteForce(positiveArray), Matchers.is(true));
-        assertThat(MongeArray.bruteForce(negativeArray), Matchers.is(false));
+        assertThat(MongeArray.bruteForce(positiveArray)).isTrue();
+        assertThat(MongeArray.bruteForce(negativeArray)).isFalse();
     }
 }

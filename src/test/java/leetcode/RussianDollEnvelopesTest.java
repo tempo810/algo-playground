@@ -1,9 +1,8 @@
 package leetcode;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author tempo
@@ -13,6 +12,6 @@ class RussianDollEnvelopesTest {
 
     @Test
     void maxEnvelopes() {
-        assertThat(solution.maxEnvelopes(new int[][]{{6, 10}, {11, 14}, {6, 1}, {16, 14}, {13, 2}}), Matchers.is(3));
+        assertThat(solution.maxEnvelopes(new int[][]{{6, 10}, {11, 14}, {6, 1}, {16, 14}, {13, 2}})).isEqualTo(3);
     }
 }

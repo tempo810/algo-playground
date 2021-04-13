@@ -1,10 +1,9 @@
 package leetcode;
 
 import leetcode.datastructure.TreeNode;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author tempo
@@ -18,6 +17,6 @@ class HouseRobber3Test {
         root.left = new TreeNode(1);
         root.left.right = new TreeNode(4);
         root.right = new TreeNode(3);
-        assertThat(solution.rob(root), Matchers.is(7));
+        assertThat(solution.rob(root)).isEqualTo(7);
     }
 }

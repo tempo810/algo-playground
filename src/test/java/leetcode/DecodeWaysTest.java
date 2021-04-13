@@ -1,9 +1,8 @@
 package leetcode;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author tempo
@@ -13,6 +12,6 @@ class DecodeWaysTest {
 
     @Test
     void test() {
-        assertThat(solution.numDecodings("226"), Matchers.is(3));
+        assertThat(solution.numDecodings("226")).isEqualTo(3);
     }
 }

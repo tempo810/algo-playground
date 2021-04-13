@@ -1,9 +1,8 @@
 package leetcode;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author tempo
@@ -13,7 +12,7 @@ class IntegerToRomanTest {
 
     @Test
     void test() {
-        assertThat(solution.intToRoman(4), Matchers.is("IV"));
-        assertThat(solution.intToRoman(58), Matchers.is("LVIII"));
+        assertThat(solution.intToRoman(4)).isEqualTo("IV");
+        assertThat(solution.intToRoman(58)).isEqualTo("LVIII");
     }
 }

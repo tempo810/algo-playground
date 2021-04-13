@@ -1,9 +1,8 @@
 package leetcode;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author tempo
@@ -13,7 +12,8 @@ class AverageShuffleTest {
 
     @Test
     void test() {
-        assertThat(solution.advantageCount(new int[]{2, 0, 4, 1, 2}, new int[]{1, 3, 0, 0, 2}), Matchers.is(new int[]{0}));
+        assertThat(solution.advantageCount(new int[]{2, 0, 4, 1, 2}, new int[]{1, 3, 0, 0, 2}))
+                .containsExactlyInAnyOrder(2, 0, 4, 1, 2);
     }
 
 }

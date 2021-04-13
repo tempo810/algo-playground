@@ -1,9 +1,8 @@
 package leetcode;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author tempo
@@ -13,7 +12,7 @@ class LongestSubstringWithoutRepeatingCharacterTest {
 
     @Test
     void lengthOfLongestSubstring() {
-        assertThat(solution.lengthOfLongestSubstring("abba"), Matchers.is(2));
-        assertThat(solution.lengthOfLongestSubstring("abcabcbb"), Matchers.is(3));
+        assertThat(solution.lengthOfLongestSubstring("abba")).isEqualTo(2);
+        assertThat(solution.lengthOfLongestSubstring("abcabcbb")).isEqualTo(3);
     }
 }

@@ -1,9 +1,8 @@
 package mit;
 
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.Is.is;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
@@ -14,16 +13,16 @@ class MaximumSubArrayTest {
 
     @Test
     void bruteForce() {
-        MatcherAssert.assertThat(MaximumSubArray.bruteForce(prices), is(new int[]{7, 11}));
+        assertThat(MaximumSubArray.bruteForce(prices)).containsExactly(7, 11);
     }
 
     @Test
     void recursion() {
-        MatcherAssert.assertThat(MaximumSubArray.divideAndConquer(prices), is(new int[]{7, 11}));
+        assertThat(MaximumSubArray.divideAndConquer(prices)).containsExactly(7, 11);
     }
 
     @Test
     void linear() {
-        MatcherAssert.assertThat(MaximumSubArray.linear(prices), is(new int[]{7, 11}));
+        assertThat(MaximumSubArray.linear(prices)).containsExactly(7, 11);
     }
 }
