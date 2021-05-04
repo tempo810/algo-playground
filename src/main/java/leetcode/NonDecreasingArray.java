@@ -20,7 +20,6 @@ public class NonDecreasingArray {
                 }
             }
         }
-
         return true;
     }
 }
