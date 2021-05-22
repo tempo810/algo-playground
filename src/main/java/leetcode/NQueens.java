@@ -14,23 +14,20 @@ public class NQueens {
             Arrays.fill(chars, '.');
         }
         List<List<String>> results = new ArrayList<>();
-        dfs(board, 0, 0, results);
+        dfs(board, 0, results);
         return new ArrayList<>(results);
     }
 
-    private void dfs(char[][] board, int row, int numOfQueen, List<List<String>> results) {
+    private void dfs(char[][] board, int row, List<List<String>> results) {
         if (row == board.length) {
-            if (numOfQueen == row) {
-                results.add(format(board));
-            }
+            results.add(format(board));
             return;
         }
 
-        dfs(board, row + 1, numOfQueen, results);
         for (int j = 0; j < board[row].length; j++) {
             if (validMove(board, row, j)) {
                 board[row][j] = 'Q';
-                dfs(board, row + 1, numOfQueen + 1, results);
+                dfs(board, row + 1, results);
                 board[row][j] = '.';
             }
         }
