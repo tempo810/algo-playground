@@ -27,16 +27,6 @@ public class SudokuSolver {
             candidates.remove(board[row][i]);
             candidates.remove(board[i][col]);
         }
-        if (row == col) {
-            for (int i = 0; i < 9; i++) {
-                candidates.remove(board[i][i]);
-            }
-        }
-        if (row + col == 8) {
-            for (int i = 0; i < 9; i++) {
-                candidates.remove(board[i][8 - i]);
-            }
-        }
         int squareX = col / 3 * 3;
         int squareY = row / 3 * 3;
         for (int i = 0; i < 3; i++) {
