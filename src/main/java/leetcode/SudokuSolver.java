@@ -45,7 +45,6 @@ public class SudokuSolver {
                     return true;
                 }
                 board[row][col] = '.';
-
             }
         }
         return false;
