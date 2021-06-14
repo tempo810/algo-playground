@@ -7,23 +7,24 @@ import java.util.Queue;
  * @author Tempo
  */
 public class StackWith2Queue {
-    private final Queue<Integer> queue = new ArrayDeque<>();
-    private final Queue<Integer> stack = new ArrayDeque<>();
+    private Queue<Integer> main = new ArrayDeque<>();
+    private Queue<Integer> secondary = new ArrayDeque<>();
 
     public void push(int element) {
-        queue.add(element);
+        main.add(element);
     }
 
     public int pop() {
-        if (stack.isEmpty()) {
-            if (queue.isEmpty()) {
-                throw new Error("stack is empty");
-            }
-            while (!queue.isEmpty()) {
-                stack.add(queue.remove());
-            }
+        if (main.isEmpty()) {
+            throw new Error("stack is empty");
         }
-        int val = stack.remove();
-        return val;
+
+        while (main.size() > 1) {
+            secondary.add(main.remove());
+        }
+        Queue<Integer> tmp = main;
+        main = secondary;
+        secondary = tmp;
+        return secondary.remove();
     }
 }
