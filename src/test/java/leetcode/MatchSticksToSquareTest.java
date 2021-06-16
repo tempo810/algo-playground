@@ -13,5 +13,6 @@ class MatchSticksToSquareTest {
     @Test
     void makesquare() {
         assertThat(solution.makesquare(new int[]{5, 5, 5, 5, 4, 4, 4, 4, 3, 3, 3, 3})).isTrue();
+        assertThat(solution.makesquareV2(new int[]{5, 5, 5, 5, 4, 4, 4, 4, 3, 3, 3, 3})).isTrue();
     }
 }
