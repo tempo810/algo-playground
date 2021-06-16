@@ -7,26 +7,73 @@ import java.util.Arrays;
  */
 public class MatchSticksToSquare {
     public boolean makesquare(int[] matchsticks) {
-        Arrays.sort(matchsticks);
-        if (matchsticks.length < 4) {
+        int sum = 0;
+        for (int matchstick : matchsticks) {
+            sum += matchstick;
+        }
+
+        if (matchsticks.length < 4 || sum == 0 || sum % 4 != 0) {
             return false;
         }
-        return dfs(matchsticks, 1, 0, -1);
+        int[] edges = new int[4];
+        return dfs(matchsticks, edges, 0, sum / 4);
+
     }
 
-    private boolean dfs(int[] matchsticks, int segment, int fromIndex, int targetSegmentValue) {
-        if (segment == 5) {
-            return fromIndex == matchsticks.length;
+    private boolean dfs(int[] matchsticks, int[] edges, int current, int targetValue) {
+        if (current == matchsticks.length) {
+            for (int edge : edges) {
+                if (edge != targetValue) {
+                    return false;
+                }
+            }
+            return true;
         }
-        int remainingSegment = 4 - segment;
-        int possibleSegments = matchsticks.length - fromIndex - remainingSegment;
-        int currentSegmentValue = 0;
-        for (int i = 0; i < possibleSegments; i++) {
-            currentSegmentValue += matchsticks[fromIndex + i];
-            if (targetSegmentValue == -1 || targetSegmentValue == currentSegmentValue) {
-                if (dfs(matchsticks, segment + 1, fromIndex + i, currentSegmentValue)) {
+
+        for (int i = 0; i < edges.length; i++) {
+            if (edges[i] + matchsticks[current] <= targetValue) {
+                edges[i] += matchsticks[current];
+                boolean result = dfs(matchsticks, edges, current + 1, targetValue);
+                edges[i] -= matchsticks[current];
+                if (result) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    public boolean makesquareV2(int[] matchsticks) {
+        int sum = 0;
+        for (int matchstick : matchsticks) {
+            sum += matchstick;
+        }
+
+        if (matchsticks.length < 4 || sum == 0 || sum % 4 != 0) {
+            return false;
+        }
+
+        Arrays.sort(matchsticks);
+        boolean[] visited = new boolean[matchsticks.length];
+        for (int i = 0; i < 4; i++) {
+            if (!targetLength(matchsticks, visited, matchsticks.length - 1, sum / 4)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean targetLength(int[] matchsticks, boolean[] visited, int endIndex, int targetValue) {
+        for (int i = endIndex; i >= 0; i--) {
+            if (!visited[i] && matchsticks[i] <= targetValue) {
+                visited[i] = true;
+                if (matchsticks[i] == targetValue) {
+                    return true;
+                }
+                if (targetLength(matchsticks, visited, i - 1, targetValue - matchsticks[i])) {
+                    return true;
+                }
+                visited[i] = false;
             }
         }
         return false;
