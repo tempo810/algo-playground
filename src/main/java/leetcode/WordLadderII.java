@@ -2,7 +2,9 @@ package leetcode;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
@@ -34,6 +36,55 @@ public class WordLadderII {
         dfs(beginWord, endWord, wordHash, root, partialResult, results);
         return results;
     }
+
+    public List<List<String>> findLaddersV2(String beginWord, String endWord, List<String> wordList) {
+        Queue<LadderNode> queue = new ArrayDeque<>();
+        queue.add(new LadderNode(null, beginWord));
+        Set<String> words = new HashSet<>(wordList);
+        List<List<String>> results = new ArrayList<>();
+        while (!queue.isEmpty() && results.isEmpty()) {
+            for (int i = queue.size(); i > 0; i--) {
+                LadderNode node = queue.remove();
+                words.remove(node.current);
+                if (node.current.equals(endWord)) {
+                    Deque<String> list = new LinkedList<>();
+                    while (node != null) {
+                        list.addFirst(node.current);
+                        node = node.parent;
+                    }
+                    results.add(new ArrayList<>(list));
+                } else if (results.isEmpty()) {
+                    for (String word : words) {
+                        if (eligible(word, node.current)) {
+                            queue.add(new LadderNode(node, word));
+                        }
+                    }
+                }
+            }
+        }
+        return results;
+    }
+
+    private boolean eligible(String word, String current) {
+        int diff = 0;
+        for (int i = 0; i < word.length() && diff <= 1; i++) {
+            if (word.charAt(i) != current.charAt(i)) {
+                diff++;
+            }
+        }
+        return diff == 1;
+    }
+
+    private static class LadderNode {
+        public final LadderNode parent;
+        public final String current;
+
+        private LadderNode(LadderNode parent, String current) {
+            this.parent = parent;
+            this.current = current;
+        }
+    }
+
 
     private void dfs(String beginWord, String endWord, Set<String> wordHash, Trie trie, List<String> partialResult, List<List<String>> results) {
         if (beginWord.equals(endWord)) {
@@ -96,6 +147,7 @@ public class WordLadderII {
 
     private static class Trie {
         public final String word;
+
         public final Trie[] tries = new Trie[26];
 
         private Trie(String word) {
@@ -105,5 +157,6 @@ public class WordLadderII {
         private Trie() {
             this.word = null;
         }
+
     }
 }
