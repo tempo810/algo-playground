@@ -6,6 +6,7 @@ package leetcode;
 public class StoneGameIV {
     public static void main(String[] args) {
         var sol = new StoneGameIV();
+        System.out.println(sol.stoneGameV(new int[]{2, 3, 1, 4}));
         System.out.println(sol.stoneGameV(new int[]{6, 2, 3, 4, 5, 5}));
         System.out.println(sol.stoneGameV(new int[]{7, 7, 7, 7, 7, 7, 7}));
     }
@@ -23,14 +24,14 @@ public class StoneGameIV {
 
     private int findMaxScore(int left, int right, int[][] dp) {
         if (right == left) {
-            return dp[0][left] - dp[0][left - 1];
+            return 0;
         }
-        int diff = Integer.MAX_VALUE;
         int optimalIndex = left;
-        int optimalLeftScore = Integer.MAX_VALUE;
-        int optimalRightScore = Integer.MAX_VALUE;
+        int optimalLeftScore = dp[0][left];
+        int optimalRightScore = dp[1][left + 1];
+        int diff = Integer.MAX_VALUE;
 
-        for (int i = left + 1; i < right; i++) {
+        for (int i = left; i < right; i++) {
             int leftScore = dp[0][i] - (left == 0 ? 0 : dp[0][left - 1]);
             int rightScore = dp[1][i + 1] - (right == dp[1].length - 1 ? 0 : dp[1][right + 1]);
             if (Math.abs(leftScore - rightScore) < Math.abs(diff)) {
