@@ -1,5 +1,8 @@
 package leetcode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Tempo
  */
@@ -26,7 +29,7 @@ public class StoneGameIV {
         if (right == left) {
             return 0;
         }
-        int optimalIndex = left;
+        List<Integer> optimalIndices = new ArrayList<>();
         int optimalLeftScore = dp[0][left];
         int optimalRightScore = dp[1][left + 1];
         int diff = Integer.MAX_VALUE;
@@ -34,20 +37,36 @@ public class StoneGameIV {
         for (int i = left; i < right; i++) {
             int leftScore = dp[0][i] - (left == 0 ? 0 : dp[0][left - 1]);
             int rightScore = dp[1][i + 1] - (right == dp[1].length - 1 ? 0 : dp[1][right + 1]);
-            if (Math.abs(leftScore - rightScore) < Math.abs(diff)) {
+            if (Math.abs(leftScore - rightScore) == Math.abs(diff)) {
+                optimalIndices.add(i);
+            } else if (Math.abs(leftScore - rightScore) < Math.abs(diff)) {
+                optimalIndices.clear();
+                optimalIndices.add(i);
                 diff = leftScore - rightScore;
-                optimalIndex = i;
                 optimalLeftScore = leftScore;
                 optimalRightScore = rightScore;
             }
         }
         if (optimalLeftScore == optimalRightScore) {
-            return optimalLeftScore + Math.max(findMaxScore(left, optimalIndex, dp), findMaxScore(optimalIndex + 1, right, dp));
+            int max = Integer.MIN_VALUE;
+            for (Integer optimalIndex : optimalIndices) {
+                max = Math.max(max, Math.max(findMaxScore(left, optimalIndex, dp), findMaxScore(optimalIndex + 1, right, dp)));
+            }
+            return optimalLeftScore + max;
         }
         if (optimalLeftScore < optimalRightScore) {
-            return optimalLeftScore + findMaxScore(left, optimalIndex, dp);
+            int max = Integer.MIN_VALUE;
+            for (Integer optimalIndex : optimalIndices) {
+                max = Math.max(max, findMaxScore(left, optimalIndex, dp));
+            }
+
+            return optimalLeftScore + max;
         } else {
-            return optimalRightScore + findMaxScore(optimalIndex + 1, right, dp);
+            int max = Integer.MIN_VALUE;
+            for (Integer optimalIndex : optimalIndices) {
+                max = Math.max(max, findMaxScore(optimalIndex + 1, right, dp));
+            }
+            return optimalRightScore + max;
         }
     }
 }
