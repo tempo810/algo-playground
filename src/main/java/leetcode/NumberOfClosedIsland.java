@@ -28,6 +28,7 @@ public class NumberOfClosedIsland {
             int i1 = direction[0] + i;
             int j1 = direction[1] + j;
             if (i1 < 0 || j1 < 0 || i1 == visited.length || j1 == visited[i].length || (!visited[i1][j1] && !search(i1, j1, grid, visited))) {
+                visited[i][j] = false;
                 return false;
             }
         }
