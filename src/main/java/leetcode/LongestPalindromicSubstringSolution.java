@@ -24,4 +24,31 @@ public class LongestPalindromicSubstringSolution {
         }
         return subString;
     }
+
+    public String longestPalindromeV2(String s) {
+        char[] chars = s.toCharArray();
+        boolean[][] dp = new boolean[s.length()][s.length()];
+        int startIndex = -1;
+        int endIndex = -1;
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = 0; j + i < chars.length; j++) {
+                int end = j + i;
+                if (i == end) {
+                    dp[j][end] = true;
+                } else if (chars[j] == chars[end]) {
+                    dp[j][end] = i == 1 || dp[j + 1][end - 1];
+                }
+
+                if (dp[j][end]) {
+                    startIndex = j;
+                    endIndex = end;
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = startIndex; i <= endIndex; i++) {
+            sb.append(chars[i]);
+        }
+        return sb.toString();
+    }
 }
