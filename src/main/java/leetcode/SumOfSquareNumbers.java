@@ -24,4 +24,21 @@ public class SumOfSquareNumbers {
         }
         return false;
     }
+
+    public boolean judgeSquareSumV2(int c) {
+        int start = 0;
+        int end = (int) Math.sqrt(c);
+        while (start <= end) {
+            int result = start * start + end * end;
+            if (result == c) {
+                return true;
+            }
+            if (result < c) {
+                start++;
+            } else {
+                end--;
+            }
+        }
+        return false;
+    }
 }
