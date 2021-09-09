@@ -22,8 +22,8 @@ public class LargestPlusSign {
         int[][] upDp = upDp(grid);
         int[][] downDp = downDp(grid);
         int maxOrder = 0;
-        for (int i = 1; i < grid.length - 1; i++) {
-            for (int j = 1; j < grid[i].length - 1; j++) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
                 if (grid[i][j] == 1) {
                     int currentOrder = Math.min(Math.min(leftDp[i][j], rightDp[i][j]), Math.min(upDp[i][j], downDp[i][j]));
                     maxOrder = Math.max(maxOrder, currentOrder);
