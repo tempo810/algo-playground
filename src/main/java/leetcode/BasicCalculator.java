@@ -5,16 +5,16 @@ package leetcode;
  */
 public class BasicCalculator {
     public int calculate(String equation) {
-        return calculate(equation, 0)[0];
+        return calculate(equation.toCharArray(), 0)[0];
     }
 
-    public int[] calculate(String equation, int index) {
+    public int[] calculate(char[] equation, int index) {
         int total = 0;
         int sign = 1;
         int token = 0;
         int localIndex = index;
-        while (localIndex < equation.length() && equation.charAt(localIndex) != ')') {
-            char currentChar = equation.charAt(localIndex);
+        while (localIndex < equation.length && equation[localIndex] != ')') {
+            char currentChar = equation[localIndex];
             if (currentChar != ' ') {
                 if (Character.isDigit(currentChar)) {
                     token = token * 10 + Character.getNumericValue(currentChar);
