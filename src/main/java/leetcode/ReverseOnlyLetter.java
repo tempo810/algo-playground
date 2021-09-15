@@ -10,9 +10,9 @@ public class ReverseOnlyLetter {
         int right = chars.length - 1;
         while (left < right) {
             if (Character.isLetter(chars[left]) && Character.isLetter(chars[right])) {
-                chars[left] += chars[right];
-                chars[right] = (char) (chars[left] - chars[right]);
-                chars[left] -= chars[right];
+                chars[left] = (char) (chars[left] ^ chars[right]);
+                chars[right] = (char) (chars[left] ^ chars[right]);
+                chars[left] = (char) (chars[left] ^ chars[right]);
                 left++;
                 right--;
             }
