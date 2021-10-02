@@ -1,75 +1,37 @@
 package leetcode;
 
-import java.util.Arrays;
-
 /**
  * @author Tempo
  */
 
-//TODO: figure out later
 public class CherryPickup {
+    private final int[][][] directions = {{{1, 0}, {1, 0}}, {{1, 0}, {0, 1}}, {{0, 1}, {0, 1}}, {{0, 1}, {1, 0}}};
+
     public int cherryPickup(int[][] grid) {
-        int[][] dp = new int[grid.length][grid[0].length];
-        fill(dp);
-        boolean[][] path = new boolean[grid.length][grid[0].length];
-        int firstHalf = forwardDp(grid, dp, path, 0, 0);
-        if (firstHalf == -1) {
-            return 0;
-        } else {
-            path[0][0] = true;
-            fill(dp);
-            return firstHalf + returnDp(grid, dp, path, grid.length - 1, grid[0].length - 1);
-        }
+        Integer[][][][] dp = new Integer[grid.length][grid[0].length][grid.length][grid[0].length];
+        return Math.max(0, find(grid, dp, 0, 0, 0, 0));
     }
 
-    private int returnDp(int[][] grid, int[][] dp, boolean[][] path, int i, int j) {
-        if (i < 0 || j < 0) {
-            return 0;
+    private int find(int[][] grid, Integer[][][][] dp, int row1, int col1, int row2, int col2) {
+        if (row1 == grid.length || row2 == grid.length || col1 == grid[0].length || col2 == grid[0].length
+                || grid[row1][col1] == -1 || grid[row2][col2] == -1) {
+            return Integer.MIN_VALUE;
         }
-        if (dp[i][j] == -2) {
-            if (grid[i][j] == -1) {
-                dp[i][j] = -1;
-            } else {
-                dp[i][j] = Math.max(returnDp(grid, dp, path, i - 1, j), returnDp(grid, dp, path, i, j - 1));
-                if (dp[i][j] > -1 && !path[i][j]) {
-                    dp[i][j] += grid[i][j];
-                }
+        if (row1 == grid.length - 1 && col1 == grid[0].length - 1) {
+            return grid[row1][col1];
+        }
+
+        if (dp[row1][col1][row2][col2] == null) {
+            int currentPick = grid[row1][col1];
+            if (col1 != col2 || row1 != row2) {
+                currentPick += grid[row2][col2];
             }
-        }
-        return dp[i][j];
-    }
-
-    private void fill(int[][] dp) {
-        for (int[] ints : dp) {
-            Arrays.fill(ints, -2);
-        }
-    }
-
-    private int forwardDp(int[][] grid, int[][] dp, boolean[][] path, int i, int j) {
-        if (i == grid.length || j == grid[i].length) {
-            return 0;
-        }
-        if (dp[i][j] == -2) {
-            if (grid[i][j] == -1) {
-                dp[i][j] = -1;
-            } else {
-                int down = forwardDp(grid, dp, path, i + 1, j);
-                int right = forwardDp(grid, dp, path, i, j + 1);
-                if (down == -1 && right == -1) {
-                    dp[i][j] = -1;
-                } else if (down > right) {
-                    if (i + 1 < grid.length) {
-                        path[i + 1][j] = true;
-                    }
-                    dp[i][j] = grid[i][j] + down;
-                } else {
-                    if (j + 1 < grid[i].length) {
-                        path[i][j + 1] = true;
-                    }
-                    dp[i][j] = grid[i][j] + right;
-                }
+            int maxPick = Integer.MIN_VALUE;
+            for (int[][] direction : directions) {
+                maxPick = Math.max(maxPick, find(grid, dp, row1 + direction[0][0], col1 + direction[0][1], row2 + direction[1][0], col2 + direction[1][1]));
             }
+            dp[row1][col1][row2][col2] = currentPick + maxPick;
         }
-        return dp[i][j];
+        return dp[row1][col1][row2][col2];
     }
 }
