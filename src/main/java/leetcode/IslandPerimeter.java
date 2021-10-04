@@ -6,7 +6,7 @@ package leetcode;
 public class IslandPerimeter {
     private final int[][] directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
-    public int islandPerimeter(int[][] grid) {
+    public int islandPerimeterDfs(int[][] grid) {
         boolean[][] visited = new boolean[grid.length][grid[0].length];
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
@@ -16,6 +16,25 @@ public class IslandPerimeter {
             }
         }
         return 0;
+    }
+
+    public int islandPerimeter(int[][] grid) {
+        int filledCount = 0;
+        int adjacentCount = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    filledCount++;
+                    if (i + 1 < grid.length && grid[i + 1][j] == 1) {
+                        adjacentCount++;
+                    }
+                    if (j + 1 < grid[0].length && grid[i][j + 1] == 1) {
+                        adjacentCount++;
+                    }
+                }
+            }
+        }
+        return filledCount * 4 - adjacentCount * 2;
     }
 
     private int dfs(int row, int col, int[][] grid, boolean[][] visited) {
