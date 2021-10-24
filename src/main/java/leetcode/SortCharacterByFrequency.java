@@ -23,9 +23,7 @@ public class SortCharacterByFrequency {
         while (!heap.isEmpty()) {
             Integer value = heap.poll();
             char c = (char) (value % 100 + '0');
-            for (int i = 0; i < value / 100; i++) {
-                sb.append(c);
-            }
+            sb.append(String.valueOf(c).repeat(Math.max(0, value / 100)));
         }
         return sb.toString();
     }
