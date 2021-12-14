@@ -31,4 +31,29 @@ public class OddEvenLinkedList {
         cur.next = mergeHead;
         return head;
     }
+
+    public ListNode oddEvenList2(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode cursor = head;
+        ListNode evenHead = null;
+        ListNode evenTail = null;
+        while (cursor.next != null) {
+            ListNode evenNode = cursor.next;
+            if (evenHead == null) {
+                evenHead = evenNode;
+                evenTail = evenNode;
+            } else {
+                evenTail.next = evenNode;
+                evenTail = evenTail.next;
+            }
+            if (evenNode.next != null) {
+                cursor.next = evenNode.next;
+                cursor = cursor.next;
+            }
+        }
+        cursor.next = evenHead;
+        return head;
+    }
 }
