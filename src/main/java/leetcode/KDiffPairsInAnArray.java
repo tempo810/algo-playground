@@ -12,7 +12,7 @@ public class KDiffPairsInAnArray {
         int l = 0, r = 0;
         while (r < nums.length) {
             if (l == r) {
-                r = findNextValueIndex(nums, r);
+                r++;
             } else {
                 int diff = nums[r] - nums[l];
                 if (diff == k) {
