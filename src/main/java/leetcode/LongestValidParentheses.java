@@ -23,6 +23,8 @@ public class LongestValidParentheses {
             }
         }
 
+        open = 0;
+        close = 0;
 
         for (int i = chars.length - 1; i >= 0; i--) {
             if (chars[i] == ')') {
