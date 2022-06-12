@@ -1,5 +1,6 @@
 package leetcode;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -47,5 +48,23 @@ public class MaximumErasureValue {
             }
         }
         return max;
+    }
+
+    public int maximumUniqueSubarrayV3(int[] nums) {
+        int[] prefixSums = new int[nums.length + 1];
+        int[] seen = new int[10001];
+        Arrays.fill(seen, -1);
+
+        int maxErasure = 0;
+        int start = 0;
+        for (int i = 0; i < nums.length; i++) {
+            prefixSums[i + 1] = prefixSums[i] + nums[i];
+            if (seen[nums[i]] >= start) {
+                start = seen[nums[i]] + 1;
+            }
+            seen[nums[i]] = i;
+            maxErasure = Math.max(maxErasure, prefixSums[i + 1] - prefixSums[start]);
+        }
+        return maxErasure;
     }
 }
