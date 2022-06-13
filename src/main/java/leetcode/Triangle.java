@@ -7,22 +7,19 @@ import java.util.List;
  */
 public class Triangle {
     public int minimumTotal(List<List<Integer>> triangle) {
-        if (triangle.size() == 1) {
-            return triangle.get(0).get(0);
-        }
-
         Integer[][] dp = new Integer[triangle.size()][triangle.get(triangle.size() - 1).size()];
-        for (int i = 0; i < triangle.get(triangle.size() - 1).size(); i++) {
-            dp[triangle.size() - 1][i] = triangle.get(triangle.size() - 1).get(i);
-        }
-
-        return helper(0, 0, triangle, dp);
+        return search(0, 0, triangle, dp);
     }
 
-    private int helper(int i, int j, List<List<Integer>> triangle, Integer[][] dp) {
-        if (dp[i][j] == null) {
-            dp[i][j] = Math.min(helper(i + 1, j, triangle, dp), helper(i + 1, j + 1, triangle, dp)) + triangle.get(i).get(j);
+    private int search(int row, int col, List<List<Integer>> triangle, Integer[][] dp) {
+        if (dp[row][col] == null) {
+            if (row == triangle.size() - 1) {
+                dp[row][col] = triangle.get(row).get(col);
+            } else {
+                dp[row][col] = triangle.get(row).get(col) + Math.min(search(row + 1, col, triangle, dp),
+                        search(row + 1, col + 1, triangle, dp));
+            }
         }
-        return dp[i][j];
+        return dp[row][col];
     }
 }
