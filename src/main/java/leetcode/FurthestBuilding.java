@@ -8,27 +8,29 @@ import java.util.PriorityQueue;
  */
 public class FurthestBuilding {
     public int furthestBuilding(int[] heights, int bricks, int ladders) {
+        if (ladders >= heights.length - 1) {
+            return heights.length - 1;
+        }
         int remainingBricks = bricks;
         int remainingLadders = ladders;
-        PriorityQueue<Integer> usedBricks = new PriorityQueue<>(Comparator.reverseOrder()); // max heap
-        for (int i = 0; i < heights.length - 1; i++) {
-            int diff = heights[i + 1] - heights[i];
-            if (diff <= 0) {
-                continue;
-            }
-            if (remainingBricks >= diff) {
-                remainingBricks -= diff;
-                usedBricks.add(diff);
-            } else if (remainingLadders > 0) {
-                remainingLadders--;
-                int largestGap = usedBricks.isEmpty() ? 0 : usedBricks.remove();
-                remainingBricks += Math.max(0, largestGap - diff);
-                usedBricks.add(Math.min(largestGap, diff));
-            } else {
-                return i;
+        PriorityQueue<Integer> usedBricks = new PriorityQueue<>(Comparator.reverseOrder());
+        for (int i = 1; i < heights.length; i++) {
+            int diff = heights[i] - heights[i - 1];
+            if (diff > 0) {
+                if (remainingBricks >= diff) {
+                    usedBricks.add(diff);
+                    remainingBricks -= diff;
+                } else if (remainingLadders > 0) {
+                    remainingLadders--;
+                    if (!usedBricks.isEmpty() && diff < usedBricks.peek()) {
+                        remainingBricks += usedBricks.poll() - diff;
+                        usedBricks.add(diff);
+                    }
+                } else {
+                    return i - 1;
+                }
             }
         }
-
         return heights.length - 1;
     }
 }
