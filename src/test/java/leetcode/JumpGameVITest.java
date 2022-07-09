@@ -13,5 +13,6 @@ class JumpGameVITest {
     @Test
     void maxResult() {
         assertThat(solution.maxResult(new int[]{1, -1, -2, 4, -7, 3}, 2)).isEqualTo(7);
+        assertThat(solution.maxResultSlidingQueue(new int[]{1, -1, -2, 4, -7, 3}, 2)).isEqualTo(7);
     }
 }
