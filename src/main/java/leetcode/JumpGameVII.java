@@ -1,5 +1,7 @@
 package leetcode;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -7,6 +9,44 @@ import java.util.Queue;
  * @author Tempo
  */
 public class JumpGameVII {
+    public boolean canReach(String s, int minJump, int maxJump) {
+        if (s.charAt(s.length() - 1) == '1') return false;
+        char[] chars = s.toCharArray();
+        Deque<Integer> validMovesIndex = new ArrayDeque<>();
+        validMovesIndex.addLast(0);
+        for (int i = 1; i < chars.length && !validMovesIndex.isEmpty() && i <= validMovesIndex.peekLast() + maxJump; i++) {
+            while (!validMovesIndex.isEmpty() && validMovesIndex.peekFirst() + maxJump < i) {
+                validMovesIndex.removeFirst();
+            }
+            if (validMovesIndex.isEmpty()) {
+                return false;
+            }
+            if (chars[i] == '0' && i >= validMovesIndex.peekFirst() + minJump) {
+                if (i == chars.length - 1) {
+                    return true;
+                }
+                validMovesIndex.addLast(i);
+            }
+        }
+        return false;
+    }
+
+    private boolean dfs(int index, char[] chars, int min, int max) {
+        if (index == chars.length - 1) {
+            return chars[index] == '0';
+        }
+        if (chars[index] == '1') {
+            return false;
+        }
+        chars[index] = '1';
+        for (int i = Math.min(max + index, chars.length - 1); i >= min + index; i--) {
+            if (dfs(i, chars, min, max)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int maxResult(int[] nums, int k) {
         Integer[] dp = new Integer[nums.length];
         dp[nums.length - 1] = nums[nums.length - 1];
