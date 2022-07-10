@@ -5,16 +5,13 @@ package leetcode;
  */
 public class MinCostOfClimbingStair {
     public int minCostClimbingStairs(int[] cost) {
-        int[] dp = new int[2];
-        dp[1] = cost[cost.length - 1];
-        dp[0] = cost[cost.length - 2];
-
-        for (int i = cost.length - 3; i >= 0; i--) {
-            int last = dp[0];
-            dp[0] = cost[i] + Math.min(dp[0], dp[1]);
-            dp[1] = last;
+        int take = 0;
+        int skip = 0;
+        for (int i : cost) {
+            int currentStep = Math.min(take, skip) + i;
+            skip = take;
+            take = currentStep;
         }
-
-        return Math.min(dp[0], dp[1]);
+        return Math.min(take, skip);
     }
 }
