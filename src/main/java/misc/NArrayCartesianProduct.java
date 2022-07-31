@@ -1,21 +1,12 @@
 package misc;
 
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.Queue;
 
 /**
  * @author Tempo
  */
 public class NArrayCartesianProduct {
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(get(new int[][]{{0, 2, 3}, {2, 3, 4}, {4, 5, 6, 7}})));
-
-        NDimensionalArray array1 = new NDimensionalArray(new int[]{0, 2, 3}, new NDimensionalArray(new int[]{2, 3, 4}, null));
-        NDimensionalArray array2 = new NDimensionalArray(new int[]{}, new NDimensionalArray(new int[]{4, 5, 6, 7}, null));
-        System.out.println(Arrays.toString(get(array1, array2)));
-    }
-
     public static int[] get(int[]... arrays) {
         Queue<Integer> queue = new ArrayDeque<>();
         queue.add(1);
