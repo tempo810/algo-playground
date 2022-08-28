@@ -13,6 +13,7 @@ class SortTheMatrixDiagonallyTest {
     @Test
     @Disabled
     void diagonalSort() {
+//        Assertions.assertThat(solution.diagonalSort(new int[][]{{2,2}, {1,1}})).isEqualTo(new int[][]{{1,2}, {1, 2}});
         Assertions.assertThat(solution.diagonalSort(new int[][]{{3, 3, 1, 1}, {2, 2, 1, 2}, {1, 1, 1, 2}})).isEqualTo(new int[][]{{1, 1, 1, 1}, {1, 2, 2, 2}, {1, 2, 3, 3}});
     }
 }

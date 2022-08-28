@@ -44,7 +44,7 @@ public class SortTheMatrixDiagonally {
 
         int low = 0;
         int j = currentCol;
-        for (int i = currentRow; i <= maxRow; i++, j++) {
+        for (int i = currentRow; i < maxRow; i++, j++) {
             if (matrix[i][j] < pivot) {
                 swap(currentRow + low, currentCol + low, i, j, matrix);
                 low++;
@@ -55,8 +55,10 @@ public class SortTheMatrixDiagonally {
     }
 
     private void swap(int targetRow, int targetCol, int row, int col, int[][] matrix) {
-        matrix[targetRow][targetCol] ^= matrix[row][col];
-        matrix[row][col] ^= matrix[targetRow][targetCol];
-        matrix[targetRow][targetCol] ^= matrix[row][col];
+        if (targetRow != row) {
+            matrix[targetRow][targetCol] ^= matrix[row][col];
+            matrix[row][col] ^= matrix[targetRow][targetCol];
+            matrix[targetRow][targetCol] ^= matrix[row][col];
+        }
     }
 }
