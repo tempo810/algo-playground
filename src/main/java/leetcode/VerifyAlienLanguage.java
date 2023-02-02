@@ -28,4 +28,34 @@ public class VerifyAlienLanguage {
         }
         return true;
     }
+
+    public boolean isAlienSorted2(String[] words, String order) {
+        int[] hash = new int[26];
+        int index = 0;
+        for (char c : order.toCharArray()) {
+            hash[c - 'a'] = index++;
+        }
+
+        for (int i = 1; i < words.length; i++) {
+            if (!isSorted(words[i - 1], words[i], hash)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isSorted(String firstWord, String secondWord, int[] hash) {
+        final char[] firstWordChars = firstWord.toCharArray();
+        final char[] secondWordChars = secondWord.toCharArray();
+        final int minLength = Math.min(firstWordChars.length, secondWordChars.length);
+        for (int i = 0; i < minLength; i++) {
+            if (hash[secondWordChars[i] - 'a'] > hash[firstWordChars[i] - 'a']) {
+                return true;
+            }
+            if (hash[secondWordChars[i] - 'a'] < hash[firstWordChars[i] - 'a']) {
+                return false;
+            }
+        }
+        return secondWordChars.length >= firstWordChars.length;
+    }
 }
