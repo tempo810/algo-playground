@@ -28,14 +28,7 @@ public class ShortestPathWithAlternatingColors {
         }
 
         int[] result = new int[n];
-
-        if (redAdjacent[0].isEmpty() && blueAdjacent[0].isEmpty()) {
-            Arrays.fill(result, -1);
-            result[0] = 0;
-            return result;
-        }
-
-        Arrays.fill(result, Integer.MAX_VALUE);
+        Arrays.fill(result, -1);
         result[0] = 0;
 
         Queue<List<Integer>> nodes = new ArrayDeque<>();
@@ -49,11 +42,6 @@ public class ShortestPathWithAlternatingColors {
             bfs(nodes, redAdjacent, blueAdjacent, result, false);
         }
 
-        for (int i = 0; i < result.length; i++) {
-            if (result[i] == Integer.MAX_VALUE) {
-                result[i] = -1;
-            }
-        }
         return result;
     }
 
@@ -78,7 +66,7 @@ public class ShortestPathWithAlternatingColors {
                 for (Integer node : nodes.poll()) {
                     if (!reached[node]) {
                         reached[node] = true;
-                        result[node] = Math.min(step, result[node]);
+                        result[node] = result[node] == -1 ? step : Math.min(step, result[node]);
                         if (!alternate[node].isEmpty()) {
                             nodes.add(alternate[node]);
                         }
