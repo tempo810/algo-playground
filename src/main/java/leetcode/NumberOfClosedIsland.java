@@ -6,6 +6,36 @@ package leetcode;
 public class NumberOfClosedIsland {
     private static final int[][] DIRECTIONS = new int[][]{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
+    public int closedIsland2(int[][] grid) {
+        int n = grid.length - 1;
+        int m = grid[0].length - 1;
+        int total = 0;
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < m; j++) {
+                if (grid[i][j] == 0 && isClosed(i, j, grid)) total++;
+            }
+        }
+
+        return total;
+    }
+
+    private boolean isClosed(int n, int m, int[][] grid) {
+        if (grid[n][m] == 1) {
+            return true;
+        }
+        grid[n][m] = 2;
+        for (int[] direction : DIRECTIONS) {
+            int nextN = direction[0] + n;
+            int nextM = direction[1] + m;
+            if (nextN < 0 || nextM < 0 || nextN == grid.length || nextM == grid[0].length || (grid[nextN][nextM] != 2 && !isClosed(nextN, nextM, grid))) {
+                grid[n][m] = 0;
+                return false;
+            }
+        }
+        grid[n][m] = 1;
+        return true;
+    }
+
     public int closedIsland(int[][] grid) {
         boolean[][] visited = new boolean[grid.length][grid[0].length];
         int total = 0;
