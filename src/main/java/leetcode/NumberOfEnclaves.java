@@ -6,6 +6,40 @@ package leetcode;
 public class NumberOfEnclaves {
     private static final int[][] DIRECTIONS = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
+    public int numEnclavesDFS(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        for (int i = 0; i < m; i++) {
+            overrideNotEnclave(0, i, grid);
+            overrideNotEnclave(n - 1, i, grid);
+        }
+        for (int i = 1; i < n - 1; i++) {
+            overrideNotEnclave(i, 0, grid);
+            overrideNotEnclave(i, m - 1, grid);
+        }
+
+        int count = 0;
+        for (int i = 1; i < n - 1; i++) {
+            for (int j = 1; j < m - 1; j++) {
+                if (grid[i][j] == 1) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private void overrideNotEnclave(int n, int m, int[][] grid) {
+        if (n < 0 || m < 0 || n == grid.length || m == grid[n].length || grid[n][m] == 0) {
+            return;
+        }
+        grid[n][m] = 0;
+        for (int[] direction : DIRECTIONS) {
+            overrideNotEnclave(n + direction[0], m + direction[1], grid);
+        }
+    }
+
     public int numEnclaves(int[][] grid) {
         int n = grid.length;
         int m = grid[0].length;
