@@ -5,34 +5,37 @@ package leetcode;
  */
 public class CapacityToShipPackagesWithinDDays {
     public int shipWithinDays(int[] weights, int days) {
-        int min = 0;
-        int max = 0;
+        int minWeight = 0;
+        int maxWeight = 0;
+
         for (int weight : weights) {
-            min = Math.max(weight, min);
-            max += weight;
+            minWeight = Math.max(minWeight, weight);
+            maxWeight += weight;
         }
 
-        while (min < max) {
-            int mid = min + (max - min) / 2;
-            if (canShip(weights, mid, days)) {
-                max = mid;
+        while (minWeight < maxWeight) {
+            int capacity = (minWeight + maxWeight) / 2;
+            if (canShip(capacity, days, weights)) {
+                maxWeight = capacity;
             } else {
-                min = mid + 1;
+                minWeight = capacity + 1;
             }
         }
-        return min;
+        return maxWeight;
     }
 
-    private boolean canShip(int[] weights, int capacity, int days) {
-        int totalDay = 1;
-        int dailyWeight = 0;
-        for (int weight : weights) {
-            dailyWeight += weight;
-            if (dailyWeight > capacity) {
-                totalDay++;
-                dailyWeight = weight;
+    private boolean canShip(int maxCapacity, int maxDays, int[] weights) {
+        int currentCapacity = 0;
+        int currentDays = 1;
+
+        for (int i = 0; i < weights.length && currentDays <= maxDays; i++) {
+            currentCapacity += weights[i];
+            if (currentCapacity > maxCapacity) {
+                currentDays++;
+                currentCapacity = weights[i];
             }
         }
-        return totalDay <= days;
+
+        return currentDays <= maxDays;
     }
 }
