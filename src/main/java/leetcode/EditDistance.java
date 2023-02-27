@@ -24,13 +24,13 @@ public class EditDistance {
         }
 
         if (dp[word1Index][word2Index] == -1) {
-            int insert = 1 + findMin(word1Index, word1, word2Index + 1, word2, dp);
-            int del = 1 + findMin(word1Index + 1, word1, word2Index, word2, dp);
-            int update = findMin(word1Index + 1, word1, word2Index + 1, word2, dp);
+            dp[word1Index][word2Index] = findMin(word1Index + 1, word1, word2Index + 1, word2, dp);
             if (word1[word1Index] != word2[word2Index]) {
-                update++;
+                dp[word1Index][word2Index]++;
+                int insert = findMin(word1Index, word1, word2Index + 1, word2, dp);
+                int del = findMin(word1Index + 1, word1, word2Index, word2, dp);
+                dp[word1Index][word2Index] = Math.min(dp[word1Index][word2Index], Math.min(insert, del) + 1);
             }
-            dp[word1Index][word2Index] = Math.min(insert, Math.min(del, update));
         }
 
         return dp[word1Index][word2Index];
