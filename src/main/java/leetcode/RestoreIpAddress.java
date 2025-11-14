@@ -37,4 +37,19 @@ public class RestoreIpAddress {
             }
         }
     }
+
+    public List<String> restoreIpAddresses2(String s) {
+        Deque<Integer> partial = new ArrayDeque<>();
+        List<String> results = new ArrayList<>();
+        restoreIpAddresses2(s.toCharArray(), 0, partial, results);
+        return results;
+    }
+
+    private void restoreIpAddresses2(char[] ipArray, int startIndex, Deque<Integer> segments, List<String> results) {
+        if (segments.size() == 4) {
+            if (startIndex == ipArray.length) {
+
+            }
+        }
+    }
 }

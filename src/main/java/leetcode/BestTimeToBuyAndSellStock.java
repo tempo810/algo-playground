@@ -4,6 +4,16 @@ package leetcode;
  * @author tempo
  */
 public class BestTimeToBuyAndSellStock {
+
+    public int maxProfit2(int[] prices) {
+        int currentMax = 0;
+        int globalMax = 0;
+        for (int i = 1; i < prices.length; i++) {
+            currentMax = Math.max(0, currentMax + prices[i] - prices[i - 1]);
+            globalMax = Math.max(currentMax, globalMax);
+        }
+        return globalMax;
+    }
     public int maxProfit(int[] prices) {
         int max = 0;
         int currentMax = 0;
