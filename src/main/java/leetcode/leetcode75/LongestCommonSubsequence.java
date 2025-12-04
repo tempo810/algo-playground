@@ -25,8 +25,6 @@ public class LongestCommonSubsequence {
                 for (int j = start2; j < text2.length(); j++) {
                     if (text1.charAt(i) == text2.charAt(j)) {
                         max = Math.max(max, 1 + find(text1, text2, i + 1, j + 1, dp));
-                    } else {
-                        max = Math.max(max, find(text1, text2, i, j + 1, dp));
                     }
                 }
             }

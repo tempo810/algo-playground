@@ -17,6 +17,6 @@ class LongestCommonSubsequenceTest {
 
     @Test
     void longestCommonSubsequenceBottomUp() {
-        Assertions.assertThat(this.longestCommonSubsequence.longestCommonSubsequenceBottomUp("abcde", "ace")).isEqualTo(3);
+        Assertions.assertThat(this.longestCommonSubsequence.longestCommonSubsequence("abcde", "ace")).isEqualTo(3);
     }
 }
